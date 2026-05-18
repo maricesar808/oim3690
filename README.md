@@ -1,6 +1,6 @@
 # oim3690
 
-My name is Mari Cesar.
+My name is **Mari Cesar**.
 
 ## My Projects
 
