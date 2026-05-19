@@ -1,0 +1,47 @@
+# Week NN Log
+
+Date: YYYY-MM-DD
+
+> **What this is**: a short weekly summary of what you built, learned, and how you used AI. Not a diary — just structured evidence of your work.
+>
+> **Format**: use proper Markdown — headings, bullet points, code blocks. This file will be rendered on GitHub. If it looks like plain text with no formatting, you're doing it wrong.
+>
+> **Required**: all 4 sections present and non-empty. Empty sections = incomplete log.
+
+## What I worked on
+
+<!-- What did you build, fix, or explore this week? Link to repos or commits if relevant. -->
+
+
+
+## What I learned
+
+<!--
+Concepts, tools, workflows, debugging tricks, code patterns — anything.
+Use bullet points or ### sub-headings to organize by topic.
+Include code snippets when relevant (but not required every week).
+Explain in your own words.
+-->
+
+- 
+
+## AI interactions
+
+<!--
+One block per interaction. Add more as needed.
+-->
+
+### Interaction 1
+
+- **What I asked**: 
+- **What AI gave me**: 
+- **What I kept / changed / rejected**: 
+
+## Questions
+
+<!--
+Things you're confused about, want to explore, or want help with.
+As many as you have.
+-->
+
+- 
