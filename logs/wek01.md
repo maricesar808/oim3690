@@ -45,3 +45,9 @@ As many as you have.
 -->
 
 - 
+## Questions from Reading HTMl 
+- I don't understand what "section class="card"" means at the start of every section
+- I don't understand what div means 
+- The difference between tr vs td 
+- Is li bullet points?
+- What is thead?
