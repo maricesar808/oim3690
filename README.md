@@ -1,6 +1,6 @@
 # OIM3690 — AI-Powered Web Development
 
-- **Name**: Mari
+- **Name**: Mari Cesar
 - **Semester**: Summer 2026
 
 This is my course repo for OIM3690. It holds class exercises, weekly logs, and links to all my projects.
@@ -9,7 +9,7 @@ This is my course repo for OIM3690. It holds class exercises, weekly logs, and l
 
 | Project | Repo | Live URL |
 |---------|------|----------|
-| Personal Website | [repo](https://github.com/username/username.github.io) | [live](https://username.github.io) |
+| Personal Website | [repo](https://github.com/maricesar808/maricesar808.github.io) | [live](https://maricesar808.github.io) |
 | MP1 — Website for Someone Else | | |
 | MP2 — Interactive Web Tool | | |
 | MP3 — API-Powered App | | |
