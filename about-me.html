@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Mari</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: #f6f2ed;
+      color: #25312f;
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.6;
+    }
+
+    header {
+      background: #ffffff;
+      border-bottom: 1px solid #ddd6cc;
+      padding: 22px 28px;
+    }
+
+    nav {
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
+      margin: 0 auto;
+      max-width: 1000px;
+    }
+
+    nav a {
+      color: #25312f;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      list-style: none;
+    }
+
+    main {
+      margin: 0 auto;
+      max-width: 1000px;
+      padding: 48px 28px;
+    }
+
+    .hero {
+      align-items: center;
+      display: grid;
+      gap: 34px;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    h1 {
+      font-size: 52px;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+
+    h2 {
+      font-size: 30px;
+      margin-bottom: 14px;
+    }
+
+    h3 {
+      font-size: 20px;
+      margin-bottom: 8px;
+    }
+
+    p {
+      color: #52605d;
+      font-size: 17px;
+    }
+
+    .portrait {
+      border-radius: 8px;
+      box-shadow: 0 18px 35px rgba(38, 31, 24, 0.16);
+      display: block;
+      max-height: 430px;
+      object-fit: cover;
+      width: 100%;
+    }
+
+    section {
+      margin-top: 56px;
+    }
+
+    .card-grid {
+      display: grid;
+      gap: 18px;
+      grid-template-columns: repeat(3, 1fr);
+      margin-top: 20px;
+    }
+
+    article {
+      background: #ffffff;
+      border: 1px solid #ddd6cc;
+      border-radius: 8px;
+      padding: 22px;
+    }
+
+    ul {
+      margin-top: 14px;
+      padding-left: 20px;
+    }
+
+    li {
+      color: #52605d;
+      margin-bottom: 8px;
+    }
+
+    .external-image {
+      border-radius: 8px;
+      display: block;
+      margin-top: 20px;
+      max-height: 360px;
+      object-fit: cover;
+      width: 100%;
+    }
+
+    a {
+      color: #a85835;
+    }
+
+    footer {
+      background: #25312f;
+      color: #f6f2ed;
+      margin-top: 56px;
+      padding: 28px;
+      text-align: center;
+    }
+
+    footer p {
+      color: #ddd6cc;
+    }
+
+    @media (max-width: 760px) {
+      nav,
+      .nav-links {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .hero,
+      .card-grid {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        font-size: 40px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <nav>
+      <a href="about-me.html">Mari Cesar</a>
+
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#interests">Interests</a></li>
+        <li><a href="#inspiration">Inspiration</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="about">
+      <div>
+        <h1>About Me</h1>
+        <p>
+          Hi, my name is Mari from Oahu, Hawaii. I am a <a href="https://www.babson.edu/" target="_blank">Babson College</a> student learning how to
+          build websites with HTML and CSS. I am concentrating in Technology & Sales. I am so excited to learn this summer!
+        </p>
+      </div>
+
+      <img class="portrait" src="images/2ZT9BZ96-CN66.JPG" alt="Portrait of Mari smiling in front of a teal background">
+    </section>
+
+    <section id="interests">
+      <h2>My Interests</h2>
+      <p>These are a few things I enjoy learning about and spending time on.</p>
+
+      <div class="card-grid">
+        <article>
+          <h3>Business</h3>
+          <p>I am interested in entrepreneurship, leadership, and learning how ideas become real projects.</p>
+        </article>
+
+        <article>
+          <h3>Travel</h3>
+          <p>I enjoy visiting new places and learning from different cultures, communities, and experiences.</p>
+        </article>
+
+        <article>
+          <h3>Web Design</h3>
+          <p>I like seeing how code, images, colors, and layout work together to create a polished page.</p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <h2>Things I Value</h2>
+      <p>When I work on school, team, or personal projects, I try to focus on:</p>
+
+      <ul>
+        <li>Being organized and prepared</li>
+        <li>Learning from feedback</li>
+        <li>Showing creativity in my work</li>
+        <li>Supporting the people around me</li>
+      </ul>
+    </section>
+
+    <section id="inspiration">
+      <h2>Inspiration</h2>
+      <p>
+        I get inspiration from travel, school, and creative work. I love going to the beach, hiking, and connecting with nature on my free time.
+      </p>
+
+      <img
+        class="external-image"
+        src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80"
+        alt="Ocean waves rolling onto a sandy beach">
+    </section>
+  </main>
+
+  <footer>
+    <p>Created by Mari for OIM 3690</p>
+  </footer>
+</body>
+</html>
