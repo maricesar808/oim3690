@@ -10,7 +10,7 @@ This is my course repo for OIM3690. It holds class exercises, weekly logs, and l
 | Project | Repo | Live URL |
 |---------|------|----------|
 | Personal Website | [repo](https://github.com/maricesar808/maricesar808.github.io) | [live](https://maricesar808.github.io) |
-| MP1 — Website for Someone Else | | |
+| MP1 — Website for Someone Else | [repo](https://github.com/maricesar808/cookbook-miniproject1) | [live](https://maricesar808.github.io/cookbook-miniproject1/) |
 | MP2 — Interactive Web Tool | | |
 | MP3 — API-Powered App | | |
 | Final Project | | |
@@ -18,3 +18,5 @@ This is my course repo for OIM3690. It holds class exercises, weekly logs, and l
 ## Weekly Logs
 
 See the [logs/](logs/) folder.
+
+
