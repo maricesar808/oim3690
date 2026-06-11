@@ -18,30 +18,122 @@
       background-color: #fff0f5;
       color: #333;
       line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
     }
 
     header {
       background-color: #ff69b4;
       color: white;
-      padding: 25px;
+      padding: 22px 16px 18px;
       text-align: center;
     }
 
     header h1 {
       margin-bottom: 10px;
+      font-size: 1.35rem;
+      line-height: 1.15;
+      overflow-wrap: anywhere;
+    }
+
+    .site-nav {
+      background: #d63384;
+      color: white;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .nav-inner {
+      width: 92%;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .nav-toggle {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .nav-toggle-label {
+      align-items: center;
+      cursor: pointer;
+      display: flex;
+      justify-content: flex-end;
+      padding-right: 4px;
+      min-height: 54px;
+    }
+
+    .hamburger,
+    .hamburger::before,
+    .hamburger::after {
+      background: white;
+      border-radius: 2px;
+      display: block;
+      height: 3px;
+      position: relative;
+      width: 28px;
+    }
+
+    .hamburger::before,
+    .hamburger::after {
+      content: "";
+      position: absolute;
+      left: 0;
+    }
+
+    .hamburger::before {
+      top: -8px;
+    }
+
+    .hamburger::after {
+      top: 8px;
+    }
+
+    .nav-links {
+      display: none;
+      list-style: none;
+      padding: 0 0 14px;
+    }
+
+    .nav-toggle:checked ~ .nav-links {
+      display: block;
+    }
+
+    .nav-links li {
+      margin: 0;
+    }
+
+    .nav-links a {
+      color: white;
+      display: block;
+      font-weight: bold;
+      padding: 10px 0;
+      text-decoration: none;
+    }
+
+    .nav-links a:hover,
+    .nav-links a:focus {
+      text-decoration: underline;
     }
 
     .container {
-      width: 90%;
+      width: 92%;
       max-width: 900px;
-      margin: 30px auto;
+      margin: 22px auto;
     }
 
     .card {
       background: white;
-      padding: 20px;
-      margin-bottom: 25px;
-      border-radius: 12px;
+      padding: 18px;
+      margin-bottom: 22px;
+      border-radius: 8px;
       box-shadow: 0 3px 10px rgba(255, 105, 180, 0.2);
       border: 2px solid #ffc0cb;
     }
@@ -56,11 +148,43 @@
       border-collapse: collapse;
     }
 
+    thead {
+      display: none;
+    }
+
+    tbody,
+    tr,
+    td {
+      display: block;
+      width: 100%;
+    }
+
+    tr {
+      background: #fff8fb;
+      border: 1px solid #ffd6e7;
+      border-radius: 8px;
+      margin-bottom: 14px;
+      overflow: hidden;
+    }
+
     table th,
     table td {
-      padding: 12px;
+      padding: 10px 12px;
       border-bottom: 1px solid #ffd6e7;
       text-align: left;
+    }
+
+    table td::before {
+      color: #d63384;
+      content: attr(data-label);
+      display: block;
+      font-size: 0.8rem;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    table td:last-child {
+      border-bottom: 0;
     }
 
     table th {
@@ -82,6 +206,79 @@
       color: #c2185b;
       font-size: 14px;
     }
+
+    @media (min-width: 700px) {
+      header {
+        padding: 28px 25px;
+      }
+
+      header h1 {
+        font-size: 2.4rem;
+      }
+
+      .nav-inner {
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        min-height: 54px;
+      }
+
+      .nav-toggle-label {
+        display: none;
+      }
+
+      .nav-links,
+      .nav-toggle:checked ~ .nav-links {
+        display: flex;
+        gap: 28px;
+        padding: 0;
+      }
+
+      .nav-links a {
+        padding: 14px 0;
+      }
+
+      .container {
+        margin: 30px auto;
+      }
+
+      .card {
+        padding: 22px;
+        margin-bottom: 25px;
+      }
+
+      thead {
+        display: table-header-group;
+      }
+
+      tbody {
+        display: table-row-group;
+      }
+
+      tr {
+        background: transparent;
+        border: 0;
+        border-radius: 0;
+        display: table-row;
+        margin-bottom: 0;
+        overflow: visible;
+      }
+
+      table th,
+      table td {
+        display: table-cell;
+        padding: 12px;
+        width: auto;
+      }
+
+      table td::before {
+        content: none;
+      }
+
+      table td:last-child {
+        border-bottom: 1px solid #ffd6e7;
+      }
+    }
   </style>
 </head>
 
@@ -92,9 +289,24 @@
     <p>Babson College Student</p>
   </header>
 
+  <nav class="site-nav" aria-label="Main navigation">
+    <div class="nav-inner">
+      <input class="nav-toggle" type="checkbox" id="nav-toggle" />
+      <label class="nav-toggle-label" for="nav-toggle" aria-label="Open navigation menu">
+        <span class="hamburger"></span>
+      </label>
+
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#assignments">Assignments</a></li>
+        <li><a href="#interests">Interests</a></li>
+      </ul>
+    </div>
+  </nav>
+
   <div class="container">
 
-    <section class="card">
+    <section class="card" id="about">
       <h2>About Me</h2>
       <p>
         Hi! My name is Mari, and I am a student at <a href="https://www.babson.edu/" target="_blank" style="color: #ff69b4; text-decoration: none;">Babson College</a>. I am currently taking three summer courses: Principles of Finance, Business Ethics, and Management. I created this website to help me stay organized and keep track of all my assignments and important dates throughout the summer.
@@ -103,7 +315,7 @@
       </p>
     </section>
 
-    <section class="card">
+    <section class="card" id="assignments">
       <h2>Assignment Tracker</h2>
 
       <table>
@@ -118,30 +330,30 @@
 
         <tbody>
           <tr>
-            <td>Finance Study Guide</td>
-            <td>Principles of Finance</td>
-            <td>June 5, 2026</td>
-            <td>Review formulas and practice problems</td>
+            <td data-label="Assignment">Finance Study Guide</td>
+            <td data-label="Course">Principles of Finance</td>
+            <td data-label="Due Date">June 5, 2026</td>
+            <td data-label="Notes">Review formulas and practice problems</td>
           </tr>
 
           <tr>
-            <td>Discussion Post</td>
-            <td>Business Ethics</td>
-            <td>June 8, 2026</td>
-            <td>Submit before midnight</td>
+            <td data-label="Assignment">Discussion Post</td>
+            <td data-label="Course">Business Ethics</td>
+            <td data-label="Due Date">June 8, 2026</td>
+            <td data-label="Notes">Submit before midnight</td>
           </tr>
 
           <tr>
-            <td>Case Study Analysis</td>
-            <td>Management</td>
-            <td>June 12, 2026</td>
-            <td>Work with group members</td>
+            <td data-label="Assignment">Case Study Analysis</td>
+            <td data-label="Course">Management</td>
+            <td data-label="Due Date">June 12, 2026</td>
+            <td data-label="Notes">Work with group members</td>
           </tr>
         </tbody>
       </table>
     </section>
 
-    <section class="card">
+    <section class="card" id="interests">
       <h2>My Interests</h2>
 
       <ul>
