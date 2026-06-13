@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Mari</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+  <main>
+    <section class="contact-card" aria-labelledby="contact-heading">
+      <h1 id="contact-heading">Contact Me</h1>
+      <p>Send me a message using the form below. All fields are required.</p>
+
+      <form action="https://oim.zhili.dev/echo/view" method="GET">
+        <div class="form-field">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" autocomplete="name" required>
+        </div>
+
+        <div class="form-field">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" autocomplete="email" required>
+        </div>
+
+        <div class="form-field">
+          <label for="phone">Phone number</label>
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            autocomplete="tel"
+            aria-describedby="phone-help"
+            required>
+          <small id="phone-help">Example: 808-555-0123</small>
+        </div>
+
+        <div class="form-field">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="6" required></textarea>
+        </div>
+
+        <button type="submit">Send Message</button>
+      </form>
+
+    </section>
+  </main>
+</body>
+</html>

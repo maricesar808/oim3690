@@ -33,6 +33,10 @@ p {
     font-size: 1.05rem;
 }
 
+#about {
+    scroll-margin-top: 24px;
+}
+
 .hero {
     display: flex;
     align-items: center;
@@ -102,6 +106,77 @@ a:hover {
 
 section {
     margin-bottom: 50px;
+}
+
+.contact-card {
+    max-width: 650px;
+    margin: 0 auto;
+    padding: 40px;
+    background: white;
+    border-radius: 24px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin: 30px 0;
+}
+
+.form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+label {
+    color: #4a4a4a;
+    font-weight: 600;
+}
+
+input,
+textarea {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #e6b7cd;
+    border-radius: 10px;
+    color: #4a4a4a;
+    font: inherit;
+}
+
+input:focus,
+textarea:focus {
+    border-color: #c85a8e;
+    outline: 3px solid rgba(200, 90, 142, 0.2);
+}
+
+small {
+    color: #666;
+}
+
+button {
+    align-self: flex-start;
+    padding: 12px 24px;
+    border: 0;
+    border-radius: 10px;
+    color: white;
+    background-color: #d96b9d;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+button:hover {
+    background-color: #b54d80;
+    transform: translateY(-2px);
+}
+
+button:focus-visible {
+    outline: 3px solid rgba(181, 77, 128, 0.35);
+    outline-offset: 3px;
 }
 
 footer {
