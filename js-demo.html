@@ -75,15 +75,23 @@
       <h3>5. The Surprise Button</h3>
       <button onclick="surpriseMe()">I dare you to click on me!</button>
     </div>
+
+    <div class="demo-section">
+      <h3>6. Click Counter</h3>
+      <p>See how many times you can click the button!</p>
+      <button id="countBtn">Count My Click</button>
+      <p id="countDisplay">Clicks: 0</p>
+    </div>
+
     <script>
       function changeBackgroundColor() {
         const bgColors = [
-          "#FFE5E5",
-          "#E5F3FF",
-          "#E5FFE5",
-          "#FFF5E5",
-          "#F0E5FF",
-          "#FFE5F0",
+          "#FFD6E3",
+          "#CDE7F6",
+          "#D4F3DC",
+          "#FFF1B0",
+          "#E9D4FF",
+          "#AFFFF1",
         ];
         const n = bgColors.length;
         const randIndex = Math.floor(Math.random() * n);
@@ -95,6 +103,7 @@
         .querySelector("#colorChanger")
         .addEventListener("click", function () {
           changeBackgroundColor();
+          console.log("The background color changer was clicked!");
         });
 
       const mailbox = document.querySelector("#mailbox");
@@ -114,7 +123,7 @@
         const dateString = now.toLocaleDateString();
         document.getElementById(
           "timeDisplay"
-        ).textContent = `🕐 ${timeString} on ${dateString}`;
+        ).textContent = `⏰ The current time is ${timeString}, and today is ${dateString}.`;
       });
 
       function toggleText() {
@@ -139,6 +148,16 @@
           window.open("https://youtu.be/dQw4w9WgXcQ", "_blank");
         }
       }
+
+      let clickCount = 0;
+      const countButton = document.getElementById("countBtn");
+      const countDisplay = document.getElementById("countDisplay");
+
+      countButton.addEventListener("click", function () {
+        clickCount = clickCount + 1;
+        countDisplay.textContent = `Clicks: ${clickCount}`;
+        console.log(`Counter button clicked ${clickCount} times`);
+      });
 
       document.addEventListener("DOMContentLoaded", function () {
         console.log("🎮 Welcome to JavaScript Playground!");
