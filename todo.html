@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple To-Do List</title>
+  <style>
+    :root {
+      color-scheme: light;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f4f6fb;
+      color: #1f2937;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      padding: 32px 16px;
+      display: grid;
+      place-items: start center;
+    }
+
+    .app {
+      width: min(100%, 620px);
+      padding: 28px;
+      background: white;
+      border-radius: 18px;
+      box-shadow: 0 16px 40px rgba(31, 41, 55, 0.12);
+    }
+
+    h1 {
+      margin: 0 0 6px;
+      font-size: clamp(1.8rem, 5vw, 2.4rem);
+    }
+
+    .subtitle {
+      margin: 0 0 24px;
+      color: #6b7280;
+    }
+
+    .todo-form {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    input,
+    button {
+      min-height: 44px;
+      border-radius: 10px;
+      font: inherit;
+    }
+
+    input {
+      min-width: 0;
+      padding: 10px 12px;
+      border: 1px solid #d1d5db;
+    }
+
+    input:focus {
+      outline: 3px solid rgba(79, 70, 229, 0.18);
+      border-color: #4f46e5;
+    }
+
+    button {
+      padding: 10px 16px;
+      border: 0;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    button:focus-visible {
+      outline: 3px solid rgba(79, 70, 229, 0.3);
+      outline-offset: 2px;
+    }
+
+    .add-button {
+      color: white;
+      background: #4f46e5;
+    }
+
+    .add-button:hover {
+      background: #4338ca;
+    }
+
+    .toolbar {
+      min-height: 44px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    #task-count {
+      color: #6b7280;
+      font-size: 0.95rem;
+    }
+
+    .clear-button {
+      color: #b91c1c;
+      background: #fee2e2;
+    }
+
+    .clear-button:hover {
+      background: #fecaca;
+    }
+
+    .clear-button:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    #todo-list {
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 10px;
+      list-style: none;
+    }
+
+    .todo-item {
+      padding: 14px;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 12px;
+      align-items: center;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      background: #fafafa;
+    }
+
+    .todo-item.overdue {
+      border-color: #fca5a5;
+      background: #fff7f7;
+    }
+
+    .todo-item input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      accent-color: #4f46e5;
+      cursor: pointer;
+    }
+
+    .task-name {
+      display: block;
+      overflow-wrap: anywhere;
+      font-weight: 650;
+    }
+
+    .due-date {
+      display: block;
+      margin-top: 3px;
+      color: #6b7280;
+      font-size: 0.85rem;
+    }
+
+    .overdue .due-date {
+      color: #b91c1c;
+      font-weight: 700;
+    }
+
+    .completed .task-name {
+      color: #9ca3af;
+      text-decoration: line-through;
+    }
+
+    .completed .due-date {
+      color: #9ca3af;
+    }
+
+    .delete-button {
+      min-height: 36px;
+      padding: 7px 10px;
+      color: #6b7280;
+      background: transparent;
+      font-size: 1.1rem;
+      line-height: 1;
+    }
+
+    .delete-button:hover {
+      color: #b91c1c;
+      background: #fee2e2;
+    }
+
+    .empty-state {
+      padding: 32px 16px;
+      color: #9ca3af;
+      text-align: center;
+      border: 2px dashed #e5e7eb;
+      border-radius: 12px;
+    }
+
+    @media (max-width: 580px) {
+      .app {
+        padding: 22px 18px;
+      }
+
+      .todo-form {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <h1>My To-Do List</h1>
+    <p class="subtitle">Keep track of what needs doing and when.</p>
+
+    <form class="todo-form" id="todo-form">
+      <input
+        type="text"
+        id="task-input"
+        placeholder="What needs to be done?"
+        aria-label="Task name"
+        autocomplete="off"
+        required
+      >
+      <input type="date" id="due-date" aria-label="Due date" required>
+      <button class="add-button" type="submit">Add task</button>
+    </form>
+
+    <div class="toolbar">
+      <span id="task-count" aria-live="polite">0 tasks</span>
+      <button class="clear-button" id="clear-all" type="button">Clear all</button>
+    </div>
+
+    <ul id="todo-list" aria-label="To-do items"></ul>
+  </main>
+
+  <script>
+    const form = document.querySelector("#todo-form");
+    const taskInput = document.querySelector("#task-input");
+    const dueDateInput = document.querySelector("#due-date");
+    const todoList = document.querySelector("#todo-list");
+    const taskCount = document.querySelector("#task-count");
+    const clearAllButton = document.querySelector("#clear-all");
+    const storageKey = "simple-todo-items";
+
+    let todos = loadTodos();
+
+    function loadTodos() {
+      try {
+        return JSON.parse(localStorage.getItem(storageKey)) || [];
+      } catch {
+        return [];
+      }
+    }
+
+    function saveTodos() {
+      localStorage.setItem(storageKey, JSON.stringify(todos));
+    }
+
+    function formatDueDate(dateString) {
+      const date = new Date(`${dateString}T00:00:00`);
+      return new Intl.DateTimeFormat(undefined, {
+        month: "short",
+        day: "numeric",
+        year: "numeric"
+      }).format(date);
+    }
+
+    function isOverdue(todo) {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      return !todo.completed && new Date(`${todo.dueDate}T00:00:00`) < today;
+    }
+
+    function renderTodos() {
+      todoList.replaceChildren();
+
+      if (todos.length === 0) {
+        const emptyState = document.createElement("li");
+        emptyState.className = "empty-state";
+        emptyState.textContent = "No tasks yet. Add one above!";
+        todoList.append(emptyState);
+      } else {
+        const sortedTodos = [...todos].sort((a, b) =>
+          a.completed - b.completed || a.dueDate.localeCompare(b.dueDate)
+        );
+
+        sortedTodos.forEach((todo) => {
+          const item = document.createElement("li");
+          item.className = "todo-item";
+          item.dataset.id = todo.id;
+
+          if (todo.completed) item.classList.add("completed");
+          if (isOverdue(todo)) item.classList.add("overdue");
+
+          const checkbox = document.createElement("input");
+          checkbox.type = "checkbox";
+          checkbox.checked = todo.completed;
+          checkbox.setAttribute("aria-label", `Mark ${todo.text} as complete`);
+
+          const details = document.createElement("div");
+          const name = document.createElement("span");
+          const dueDate = document.createElement("span");
+
+          name.className = "task-name";
+          name.textContent = todo.text;
+          dueDate.className = "due-date";
+          dueDate.textContent = `${isOverdue(todo) ? "Overdue · " : "Due "}${formatDueDate(todo.dueDate)}`;
+
+          details.append(name, dueDate);
+
+          const deleteButton = document.createElement("button");
+          deleteButton.className = "delete-button";
+          deleteButton.type = "button";
+          deleteButton.textContent = "✕";
+          deleteButton.setAttribute("aria-label", `Delete ${todo.text}`);
+
+          item.append(checkbox, details, deleteButton);
+          todoList.append(item);
+        });
+      }
+
+      const remaining = todos.filter((todo) => !todo.completed).length;
+      taskCount.textContent = `${remaining} ${remaining === 1 ? "task" : "tasks"} remaining`;
+      clearAllButton.disabled = todos.length === 0;
+    }
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      const text = taskInput.value.trim();
+      const dueDate = dueDateInput.value;
+
+      if (!text || !dueDate) return;
+
+      todos.push({
+        id: crypto.randomUUID(),
+        text,
+        dueDate,
+        completed: false
+      });
+
+      saveTodos();
+      renderTodos();
+      form.reset();
+      taskInput.focus();
+    });
+
+    todoList.addEventListener("change", (event) => {
+      if (!event.target.matches('input[type="checkbox"]')) return;
+
+      const id = event.target.closest(".todo-item").dataset.id;
+      const todo = todos.find((item) => item.id === id);
+      todo.completed = event.target.checked;
+      saveTodos();
+      renderTodos();
+    });
+
+    todoList.addEventListener("click", (event) => {
+      const deleteButton = event.target.closest(".delete-button");
+      if (!deleteButton) return;
+
+      const id = deleteButton.closest(".todo-item").dataset.id;
+      todos = todos.filter((todo) => todo.id !== id);
+      saveTodos();
+      renderTodos();
+    });
+
+    clearAllButton.addEventListener("click", () => {
+      if (todos.length > 0 && window.confirm("Delete all tasks?")) {
+        todos = [];
+        saveTodos();
+        renderTodos();
+      }
+    });
+
+    renderTodos();
+  </script>
+</body>
+</html>
