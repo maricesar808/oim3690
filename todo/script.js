@@ -1,5 +1,6 @@
 const form = document.querySelector("#todo-form");
 const taskInput = document.querySelector("#task-input");
+const subjectInput = document.querySelector("#subject-input");
 const dueDateInput = document.querySelector("#due-date");
 const todoList = document.querySelector("#todo-list");
 const taskCount = document.querySelector("#task-count");
@@ -41,7 +42,7 @@ function renderTodos() {
   if (todos.length === 0) {
     const emptyState = document.createElement("li");
     emptyState.className = "empty-state";
-    emptyState.textContent = "No tasks yet. Add one above!";
+    emptyState.textContent = "You’re all caught up! Add an assignment above.";
     todoList.append(emptyState);
   } else {
     const sortedTodos = [...todos].sort((a, b) =>
@@ -63,14 +64,17 @@ function renderTodos() {
 
       const details = document.createElement("div");
       const name = document.createElement("span");
+      const subject = document.createElement("span");
       const dueDate = document.createElement("span");
 
       name.className = "task-name";
       name.textContent = todo.text;
+      subject.className = "subject";
+      subject.textContent = todo.subject || "General";
       dueDate.className = "due-date";
       dueDate.textContent = `${isOverdue(todo) ? "Overdue · " : "Due "}${formatDueDate(todo.dueDate)}`;
 
-      details.append(name, dueDate);
+      details.append(name, subject, dueDate);
 
       const deleteButton = document.createElement("button");
       deleteButton.className = "delete-button";
@@ -84,7 +88,7 @@ function renderTodos() {
   }
 
   const remaining = todos.filter((todo) => !todo.completed).length;
-  taskCount.textContent = `${remaining} ${remaining === 1 ? "task" : "tasks"} remaining`;
+  taskCount.textContent = `${remaining} ${remaining === 1 ? "assignment" : "assignments"} left`;
   clearAllButton.disabled = todos.length === 0;
 }
 
@@ -92,13 +96,15 @@ form.addEventListener("submit", (event) => {
   event.preventDefault();
 
   const text = taskInput.value.trim();
+  const subject = subjectInput.value.trim();
   const dueDate = dueDateInput.value;
 
-  if (!text || !dueDate) return;
+  if (!text || !subject || !dueDate) return;
 
   todos.push({
     id: crypto.randomUUID(),
     text,
+    subject,
     dueDate,
     completed: false
   });
@@ -130,7 +136,7 @@ todoList.addEventListener("click", (event) => {
 });
 
 clearAllButton.addEventListener("click", () => {
-  if (todos.length > 0 && window.confirm("Delete all tasks?")) {
+  if (todos.length > 0 && window.confirm("Delete all homework assignments?")) {
     todos = [];
     saveTodos();
     renderTodos();
