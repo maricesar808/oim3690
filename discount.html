@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Checkout</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+      }
+
+      .checkout {
+        width: 350px;
+        margin: 50px auto;
+        padding: 25px;
+        background-color: white;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+      }
+
+      h1 {
+        text-align: center;
+      }
+
+      label {
+        display: block;
+        margin: 15px 0 5px;
+      }
+
+      input[type="number"] {
+        width: 100%;
+        padding: 8px;
+        box-sizing: border-box;
+      }
+
+      .member {
+        margin: 15px 0;
+      }
+
+      button {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        border-radius: 4px;
+        color: white;
+        background-color: #2563eb;
+        cursor: pointer;
+      }
+
+      .summary {
+        margin-top: 20px;
+        padding: 15px;
+        background-color: #f7f7f7;
+        border-radius: 4px;
+      }
+
+      #message {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="checkout">
+      <h1>Checkout</h1>
+
+      <label for="total">Cart Total</label>
+      <input id="total" type="number" min="0" step="0.01" placeholder="100.00" />
+
+      <div class="member">
+        <input id="member" type="checkbox" />
+        <label for="member" style="display: inline">I am a member</label>
+      </div>
+
+      <button id="calculate">Calculate Total</button>
+
+      <p id="message"></p>
+
+      <section class="summary">
+        <p>Cart total: <span id="cartTotal">$0.00</span></p>
+        <p>Discount applied: <span id="discount">0%</span></p>
+        <p><strong>Final price: <span id="finalPrice">$0.00</span></strong></p>
+      </section>
+    </main>
+
+    <script>
+      function getDiscount(total, isMember) {
+        if (total >= 100 && isMember) {
+          return 20;
+        } else if (total >= 100 || isMember) {
+          return 10;
+        } else {
+          return 0;
+        }
+      }
+
+      const totalInput = document.getElementById("total");
+      const memberInput = document.getElementById("member");
+      const message = document.getElementById("message");
+      const cartTotal = document.getElementById("cartTotal");
+      const discountDisplay = document.getElementById("discount");
+      const finalPrice = document.getElementById("finalPrice");
+
+      document.getElementById("calculate").addEventListener("click", function () {
+        const total = Number(totalInput.value);
+        const isMember = memberInput.checked;
+
+        if (totalInput.value === "" || total < 0) {
+          message.textContent = "Please enter a valid cart total.";
+          return;
+        }
+
+        const discount = getDiscount(total, isMember);
+        const discountedAmount = total * (discount / 100);
+        const finalTotal = total - discountedAmount;
+
+        cartTotal.textContent = "$" + total.toFixed(2);
+        discountDisplay.textContent = discount + "%";
+        finalPrice.textContent = "$" + finalTotal.toFixed(2);
+        message.textContent = "";
+      });
+    </script>
+  </body>
+</html>
