@@ -3,26 +3,180 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Celsius to Fahrenheit Converter</title>
+    <title>Temperature Converter</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        min-height: 100vh;
+        margin: 0;
+        display: grid;
+        place-items: center;
+        padding: 1rem;
+        font-family: system-ui, sans-serif;
+        color: #172033;
+        background: #eef4ff;
+      }
+
+      main {
+        width: min(100%, 34rem);
+        padding: 2rem;
+        border-radius: 1rem;
+        background: white;
+        box-shadow: 0 1rem 2.5rem rgb(35 60 110 / 15%);
+      }
+
+      h1 {
+        margin-top: 0;
+        text-align: center;
+      }
+
+      .converter {
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        align-items: end;
+        gap: 1rem;
+      }
+
+      label {
+        display: grid;
+        gap: 0.5rem;
+        font-weight: 600;
+      }
+
+      input {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid #aeb9cc;
+        border-radius: 0.5rem;
+        font: inherit;
+      }
+
+      input:focus {
+        outline: 3px solid #cbdcff;
+        border-color: #315fc4;
+      }
+
+      .equals {
+        padding-bottom: 0.7rem;
+        font-size: 1.5rem;
+      }
+
+      #result {
+        min-height: 1.5rem;
+        margin-bottom: 0;
+        text-align: center;
+        color: #315fc4;
+        font-weight: 600;
+      }
+
+      #result.error {
+        color: #b42318;
+      }
+
+      @media (max-width: 32rem) {
+        .converter {
+          grid-template-columns: 1fr;
+        }
+
+        .equals {
+          display: none;
+        }
+      }
+    </style>
   </head>
   <body>
-    <h1>Celsius to Fahrenheit Converter</h1>
+    <main>
+      <h1>Temperature Converter</h1>
 
-    <label for="celsius">Celsius:</label>
-    <input id="celsius" type="number" />
-    <button id="convert">Convert</button>
+      <div class="converter">
+        <label for="celsius">
+          Celsius (°C)
+          <input id="celsius" type="number" step="any" placeholder="e.g. 20" />
+        </label>
 
-    <p id="result"></p>
+        <span class="equals" aria-hidden="true">⇄</span>
+
+        <label for="fahrenheit">
+          Fahrenheit (°F)
+          <input
+            id="fahrenheit"
+            type="number"
+            step="any"
+            placeholder="e.g. 68"
+          />
+        </label>
+      </div>
+
+      <p id="result" aria-live="polite">
+        Enter a temperature in either field.
+      </p>
+    </main>
 
     <script>
-      function toFarenheit(celsius) {
+      const celsiusInput = document.getElementById("celsius");
+      const fahrenheitInput = document.getElementById("fahrenheit");
+      const result = document.getElementById("result");
+
+      function toFahrenheit(celsius) {
         return (celsius * 9) / 5 + 32;
       }
 
-      document.getElementById("convert").addEventListener("click", function () {
-        const celsius = document.getElementById("celsius").value;
-        const result = document.getElementById("result");
-        result.textContent = toFarenheit(Number(celsius)) + " °F";
+      function toCelsius(fahrenheit) {
+        return ((fahrenheit - 32) * 5) / 9;
+      }
+
+      function formatTemperature(value) {
+        return Number(value.toFixed(2));
+      }
+
+      function showError() {
+        result.textContent = "Please enter a valid number.";
+        result.classList.add("error");
+      }
+
+      celsiusInput.addEventListener("input", function () {
+        if (celsiusInput.value.trim() === "") {
+          fahrenheitInput.value = "";
+          result.textContent = "Enter a temperature in either field.";
+          result.classList.remove("error");
+          return;
+        }
+
+        const celsius = Number(celsiusInput.value);
+
+        if (Number.isNaN(celsius)) {
+          showError();
+          return;
+        }
+
+        const fahrenheit = formatTemperature(toFahrenheit(celsius));
+        fahrenheitInput.value = fahrenheit;
+        result.textContent = `${celsius} °C equals ${fahrenheit} °F`;
+        result.classList.remove("error");
+      });
+
+      fahrenheitInput.addEventListener("input", function () {
+        if (fahrenheitInput.value.trim() === "") {
+          celsiusInput.value = "";
+          result.textContent = "Enter a temperature in either field.";
+          result.classList.remove("error");
+          return;
+        }
+
+        const fahrenheit = parseFloat(fahrenheitInput.value);
+
+        if (Number.isNaN(fahrenheit)) {
+          showError();
+          return;
+        }
+
+        const celsius = formatTemperature(toCelsius(fahrenheit));
+        celsiusInput.value = celsius;
+        result.textContent = `${fahrenheit} °F equals ${celsius} °C`;
+        result.classList.remove("error");
       });
     </script>
   </body>
