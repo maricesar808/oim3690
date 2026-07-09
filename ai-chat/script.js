@@ -32,18 +32,24 @@ function renderMessages() {
 }
 
 async function askAI() {
+  const apiKey = window.OPENAI_API_KEY;
+
+  if (!apiKey) {
+    throw new Error("Missing API key.");
+  }
+
   const response = await fetch("https://api.openai.com/v1/chat/completions", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${OPENAI_API_KEY}`
+      Authorization: `Bearer ${apiKey}`
     },
     body: JSON.stringify({
       model: "gpt-4o-mini",
       messages
     })
   });
-
+ 
   if (!response.ok) {
     throw new Error("The AI request failed.");
   }
@@ -69,7 +75,7 @@ chatForm.addEventListener("submit", async (event) => {
   } catch (error) {
     addMessage(
       "assistant",
-      "Sorry, something went wrong. Check your API key and try again."
+      "Sorry, something went wrong. Make sure your local config.js file has an API key and try again."
     );
   } finally {
     sendButton.disabled = false;
