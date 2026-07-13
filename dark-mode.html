@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dark Mode Demo</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      font-family: "Segoe UI", Arial, sans-serif;
+      line-height: 1.6;
+      color: #263238;
+      background: #f7f3ff;
+      transition: color 0.25s, background-color 0.25s;
+    }
+
+    .card {
+      width: min(650px, 100%);
+      padding: 40px;
+      border: 1px solid #ded5ee;
+      border-radius: 20px;
+      background: #ffffff;
+      box-shadow: 0 12px 35px rgba(69, 44, 99, 0.12);
+      transition: background-color 0.25s, border-color 0.25s;
+    }
+
+    h1 {
+      margin-top: 0;
+      color: #6d3bb3;
+    }
+
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    button {
+      padding: 11px 18px;
+      border: 0;
+      border-radius: 10px;
+      color: white;
+      background: #6d3bb3;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #53278f;
+    }
+
+    button:focus-visible {
+      outline: 3px solid #b793eb;
+      outline-offset: 3px;
+    }
+
+    #copy-message {
+      min-height: 1.6em;
+      margin: 14px 0 0;
+      color: #26734d;
+      font-weight: 600;
+    }
+
+    body.dark {
+      color: #edf1f7;
+      background: #121721;
+    }
+
+    body.dark .card {
+      border-color: #3d4657;
+      background: #202735;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.35);
+    }
+
+    body.dark h1 {
+      color: #c8a8ff;
+    }
+
+    body.dark button {
+      color: #17121f;
+      background: #c8a8ff;
+    }
+
+    body.dark button:hover {
+      background: #dbc6ff;
+    }
+
+    body.dark #copy-message {
+      color: #91e3ba;
+    }
+  </style>
+</head>
+
+<body>
+  <main class="card">
+    <h1>Dark Mode Demo</h1>
+    <p id="demo-text">
+      This page remembers your theme choice, even after you close or refresh the browser.
+    </p>
+
+    <div class="buttons">
+      <button id="theme-button" type="button">Turn on dark mode</button>
+      <button id="copy-button" type="button">Copy paragraph</button>
+    </div>
+
+    <p id="copy-message" role="status" aria-live="polite"></p>
+  </main>
+
+  <script>
+    const themeButton = document.querySelector("#theme-button");
+    const copyButton = document.querySelector("#copy-button");
+    const demoText = document.querySelector("#demo-text");
+    const copyMessage = document.querySelector("#copy-message");
+
+    function updateThemeButton() {
+      const darkModeIsOn = document.body.classList.contains("dark");
+      themeButton.textContent = darkModeIsOn
+        ? "Turn off dark mode"
+        : "Turn on dark mode";
+      themeButton.setAttribute("aria-pressed", darkModeIsOn);
+    }
+
+    if (localStorage.getItem("darkMode") === "on") {
+      document.body.classList.add("dark");
+    }
+    updateThemeButton();
+
+    themeButton.addEventListener("click", function () {
+      document.body.classList.toggle("dark");
+
+      const darkModeIsOn = document.body.classList.contains("dark");
+      localStorage.setItem("darkMode", darkModeIsOn ? "on" : "off");
+      updateThemeButton();
+    });
+
+    copyButton.addEventListener("click", async function () {
+      try {
+        await navigator.clipboard.writeText(demoText.textContent.trim());
+        copyMessage.textContent = "Paragraph copied to your clipboard!";
+      } catch (error) {
+        copyMessage.textContent = "Copy did not work in this browser.";
+      }
+    });
+  </script>
+</body>
+</html>
