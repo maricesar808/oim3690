@@ -13,7 +13,7 @@ This is my course repo for OIM3690. It holds class exercises, weekly logs, and l
 | MP1 — Website for Someone Else | [repo](https://github.com/maricesar808/cookbook-miniproject1) | [live](https://maricesar808.github.io/cookbook-miniproject1/) |
 | MP2 — Interactive Web Tool | [repo](https://github.com/maricesar808/meal-decision-helper/) | [live](https://maricesar808.github.io/meal-decision-helper/) |
 | MP3 — API-Powered App | [repo](https://github.com/maricesar808/beach-day-tracker/) | [live](https://maricesar808.github.io/beach-day-tracker/) |
-| Final Project | | |
+| Final Project |[repo](https://github.com/maricesar808/reyn-miyagawa-tennis/) | [live](https://maricesar808.github.io/reyn-miyagawa-tennis/) |
 
 ## Weekly Logs
 
