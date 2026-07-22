@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Mari Cesar's ten-week learning journey through AI-powered web development.">
+  <title>Mari's Learning Journey | OIM3690</title>
+  <style>
+    :root {
+      --ink: #292522;
+      --muted: #706863;
+      --paper: #f8f4ef;
+      --white: #fffdf9;
+      --rose: #b65d72;
+      --rose-light: #ecd2d8;
+      --sage: #5c745e;
+      --line: #d9cec4;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-underline-offset: 4px; }
+
+    a:focus-visible {
+      outline: 3px solid var(--rose-light);
+      outline-offset: 5px;
+    }
+
+    .page {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    header {
+      min-height: 90vh;
+      display: grid;
+      align-items: center;
+      padding: 70px 0;
+      border-bottom: 1px solid var(--line);
+      background:
+        radial-gradient(circle at 85% 20%, rgba(182, 93, 114, .13), transparent 24rem),
+        var(--paper);
+    }
+
+    nav {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 24px 0;
+    }
+
+    nav .page { display: flex; justify-content: space-between; align-items: center; }
+    .nav-name { font-family: Georgia, "Times New Roman", serif; font-size: 1.1rem; }
+    .nav-links { display: flex; gap: 24px; }
+    .nav-links a { color: var(--muted); font-size: .75rem; font-weight: 700; letter-spacing: .08em; text-decoration: none; text-transform: uppercase; }
+    .nav-links a:hover { color: var(--rose); }
+
+    .eyebrow {
+      margin: 0 0 18px;
+      color: var(--rose);
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+    }
+
+    h1, h2, h3 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-weight: 400;
+      line-height: 1.08;
+    }
+
+    h1 {
+      max-width: 900px;
+      margin: 0;
+      font-size: clamp(3.3rem, 9vw, 7.4rem);
+      letter-spacing: -.055em;
+    }
+
+    h1 em { color: var(--rose); font-weight: 400; }
+
+    .intro {
+      max-width: 720px;
+      margin: 36px 0 0;
+      color: var(--muted);
+      font-size: clamp(1.05rem, 2vw, 1.35rem);
+    }
+
+    .scroll-link {
+      display: inline-block;
+      margin-top: 32px;
+      padding-bottom: 5px;
+      border-bottom: 1px solid var(--ink);
+      text-decoration: none;
+      font-size: .85rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .hero-details {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 30px;
+      margin-top: 54px;
+      padding-top: 22px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: .8rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .hero-details strong { color: var(--rose); font-family: Georgia, "Times New Roman", serif; font-size: 1.25rem; font-weight: 400; }
+
+    section { padding: 100px 0; }
+
+    .section-heading {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 40px;
+      align-items: end;
+      margin-bottom: 60px;
+    }
+
+    h2 { margin: 0; font-size: clamp(2.5rem, 5vw, 4.6rem); }
+
+    .section-heading p {
+      max-width: 620px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 1.1rem;
+    }
+
+    .timeline { position: relative; }
+
+    .timeline::before {
+      position: absolute;
+      top: 10px;
+      bottom: 10px;
+      left: 71px;
+      width: 1px;
+      background: var(--line);
+      content: "";
+    }
+
+    .chapter {
+      position: relative;
+      display: grid;
+      grid-template-columns: 110px 1fr;
+      gap: 34px;
+      padding: 0 0 64px;
+    }
+
+    .chapter:last-child { padding-bottom: 0; }
+
+    .weeks {
+      position: relative;
+      z-index: 1;
+      align-self: start;
+      width: 96px;
+      height: fit-content;
+      padding: 7px 6px;
+      border: 1px solid var(--line);
+      border-radius: 100px;
+      background: var(--paper);
+      color: var(--rose);
+      font-size: .74rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-align: center;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .chapter-card {
+      padding: 0 0 52px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .chapter:last-child .chapter-card { border-bottom: 0; }
+
+    .chapter h3 { margin: 0 0 14px; font-size: clamp(1.8rem, 3.5vw, 3rem); }
+
+    .chapter p { max-width: 750px; margin: 0 0 18px; color: var(--muted); }
+
+    .tags { display: flex; flex-wrap: wrap; gap: 8px; }
+
+    .tag {
+      padding: 6px 10px;
+      border: 1px solid var(--rose-light);
+      border-radius: 100px;
+      background: rgba(255, 253, 249, .6);
+      color: #75404d;
+      font-size: .76rem;
+      font-weight: 700;
+    }
+
+    .turning-point { background: var(--ink); color: var(--white); }
+
+    .turning-point .page {
+      display: grid;
+      grid-template-columns: .8fr 1.2fr;
+      gap: 70px;
+      align-items: center;
+    }
+
+    .turning-point .eyebrow { color: #e8a9b7; }
+
+    blockquote {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2rem, 4vw, 3.8rem);
+      line-height: 1.18;
+    }
+
+    .turning-copy p { color: #cec5bf; }
+
+    .shift-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 35px;
+    }
+
+    .shift {
+      padding-top: 16px;
+      border-top: 1px solid #5e5651;
+    }
+
+    .shift strong { display: block; color: #e8a9b7; font-size: 1.45rem; }
+    .shift span { color: #cec5bf; font-size: .84rem; }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+    }
+
+    .skill-list { display: grid; gap: 24px; }
+
+    .skill-row {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 18px;
+      align-items: center;
+    }
+
+    .skill-name { font-size: .87rem; font-weight: 700; }
+
+    .bar { height: 10px; overflow: hidden; border-radius: 20px; background: #e5ddd6; }
+
+    .bar span {
+      display: block;
+      width: var(--level);
+      height: 100%;
+      border-radius: inherit;
+      background: var(--rose);
+    }
+
+    .reflection {
+      padding: 36px;
+      border: 1px solid var(--line);
+      background: var(--white);
+      box-shadow: 12px 12px 0 var(--rose-light);
+    }
+
+    .reflection h3 { margin: 0 0 16px; font-size: 2rem; }
+    .reflection p { margin: 0; color: var(--muted); }
+
+    .projects { background: var(--white); }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1px;
+      border: 1px solid var(--line);
+      background: var(--line);
+    }
+
+    .project {
+      min-height: 310px;
+      display: flex;
+      flex-direction: column;
+      padding: 30px;
+      background: var(--white);
+      transition: background-color .2s ease, transform .2s ease;
+    }
+
+    .project:hover { position: relative; z-index: 1; background: #fbf0f2; transform: translateY(-5px); }
+
+    .project-number { color: var(--rose); font-size: .76rem; font-weight: 700; }
+    .project h3 { margin: auto 0 14px; font-size: 2rem; }
+    .project p { margin: 0 0 24px; color: var(--muted); }
+    .project a { width: max-content; font-size: .78rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+
+    footer { padding: 54px 0; background: var(--rose); color: white; }
+    footer .page { display: flex; justify-content: space-between; gap: 30px; }
+    footer p { margin: 0; }
+
+    @media (max-width: 760px) {
+      .section-heading, .turning-point .page, .skills-grid { grid-template-columns: 1fr; }
+      .section-heading { gap: 18px; }
+      .turning-point .page { gap: 36px; }
+      .project-grid { grid-template-columns: 1fr; }
+      .project { min-height: 250px; }
+      .shift-grid { grid-template-columns: 1fr; }
+      .timeline::before { left: 15px; }
+      .chapter { grid-template-columns: 1fr; gap: 18px; padding-left: 46px; }
+      .weeks { position: relative; left: 0; }
+      .chapter { padding-left: 0; }
+      .timeline::before { display: none; }
+      .nav-links { gap: 14px; }
+      .nav-links a:first-child { display: none; }
+      .hero-details { margin-top: 38px; }
+      footer .page { flex-direction: column; }
+    }
+
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  </style>
+</head>
+<body>
+  <header>
+    <nav aria-label="Main navigation">
+      <div class="page">
+        <span class="nav-name">Mari Cesar</span>
+        <div class="nav-links">
+          <a href="#timeline">Journey</a>
+          <a href="#growth">Growth</a>
+          <a href="#projects">Projects</a>
+        </div>
+      </div>
+    </nav>
+    <div class="page">
+      <p class="eyebrow">OIM3690 · Summer 2026</p>
+      <h1>From my first webpage to work that feels <em>like mine.</em></h1>
+      <p class="intro">Over ten weeks, I learned HTML, CSS, JavaScript, APIs, and how to work with AI. The biggest change was not just what I could build. It was learning when to keep an AI suggestion, when to change it, and when to start over.</p>
+      <a class="scroll-link" href="#timeline">Follow the journey ↓</a>
+      <div class="hero-details" aria-label="Course summary">
+        <span><strong>10</strong> weekly logs</span>
+        <span><strong>3</strong> mini projects</span>
+        <span><strong>1</strong> final project</span>
+        <span><strong>∞</strong> lessons learned</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section id="timeline">
+      <div class="page">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Ten weeks, five chapters</p>
+            <h2>The arc</h2>
+          </div>
+          <p>I started with the basics, built for real people, struggled through JavaScript, connected live data, and finished by making stronger choices about scope and design.</p>
+        </div>
+
+        <div class="timeline">
+          <article class="chapter">
+            <div class="weeks">Weeks 1–2</div>
+            <div class="chapter-card">
+              <h3>Learning how a webpage works</h3>
+              <p>I set up GitHub and VS Code, built my first personal website, and learned semantic HTML, heading order, images, links, and alt text. At first, I kept most of what AI generated and changed the colors and wording to fit me.</p>
+              <div class="tags"><span class="tag">HTML</span><span class="tag">GitHub</span><span class="tag">Accessibility</span></div>
+            </div>
+          </article>
+
+          <article class="chapter">
+            <div class="weeks">Weeks 3–4</div>
+            <div class="chapter-card">
+              <h3>Building for someone I care about</h3>
+              <p>For my first mini project, I interviewed my grandma and turned her handwritten recipes into a multi-page family cookbook. This taught me that a website should begin with the client's needs, not just my own design preferences.</p>
+              <div class="tags"><span class="tag">CSS</span><span class="tag">Client interview</span><span class="tag">Responsive design</span></div>
+            </div>
+          </article>
+
+          <article class="chapter">
+            <div class="weeks">Weeks 5–6</div>
+            <div class="chapter-card">
+              <h3>My hardest stretch: JavaScript</h3>
+              <p>Functions, inputs, conditions, and DOM selectors were new and confusing. I built a to-do app, meal decision helper, converter, and discount calculator. Instead of only accepting finished code, I started asking AI to explain each part so I could read it myself.</p>
+              <div class="tags"><span class="tag">JavaScript</span><span class="tag">Functions</span><span class="tag">If / else</span></div>
+            </div>
+          </article>
+
+          <article class="chapter">
+            <div class="weeks">Weeks 7–8</div>
+            <div class="chapter-card">
+              <h3>Working with live data—and checking it</h3>
+              <p>My Beach Day Tracker used weather data to rate conditions at Oahu beaches. When AI gave me inaccurate coordinates, I caught the problem, researched the correct locations, and fixed them. That was when I really understood that confident AI answers still need to be verified.</p>
+              <div class="tags"><span class="tag">APIs</span><span class="tag">fetch()</span><span class="tag">Fact-checking</span></div>
+            </div>
+          </article>
+
+          <article class="chapter">
+            <div class="weeks">Weeks 9–10</div>
+            <div class="chapter-card">
+              <h3>Making deliberate choices</h3>
+              <p>For my final project, I built a professional website for my tennis coach, Reyn Miyagawa. I focused on useful contact forms, and rejected an AI redesign that did not feel right. I used Aritzia's clean aesthetic as a clearer reference and shaped the final look around my own goal.</p>
+              <div class="tags"><span class="tag">Scope</span><span class="tag">Design direction</span><span class="tag">Deployment</span></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="turning-point">
+      <div class="page">
+        <blockquote>“AI can give me a starting point, but I am responsible for the final result.”</blockquote>
+        <div class="turning-copy">
+          <p class="eyebrow">The biggest change</p>
+          <p>In the beginning, I judged AI output mostly by whether it worked. By the end, I was also asking whether it was accurate, useful, personal, and right for the person I was building for.</p>
+          <div class="shift-grid" aria-label="How my approach to AI changed">
+            <div class="shift"><strong>Then</strong><span>Keep most generated code</span></div>
+            <div class="shift"><strong>Middle</strong><span>Ask for explanations</span></div>
+            <div class="shift"><strong>Now</strong><span>Verify, reject, and direct</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="growth">
+      <div class="page">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Before and after</p>
+            <h2>What grew</h2>
+          </div>
+          <p>This is not a grade or a perfect measurement. It is a visual of where I felt the most growth across my weekly logs.</p>
+        </div>
+        <div class="skills-grid">
+          <div class="skill-list" aria-label="Skill growth chart">
+            <div class="skill-row"><span class="skill-name">HTML</span><div class="bar"><span style="--level: 92%"></span></div></div>
+            <div class="skill-row"><span class="skill-name">CSS & design</span><div class="bar"><span style="--level: 85%"></span></div></div>
+            <div class="skill-row"><span class="skill-name">JavaScript</span><div class="bar"><span style="--level: 70%"></span></div></div>
+            <div class="skill-row"><span class="skill-name">APIs</span><div class="bar"><span style="--level: 75%"></span></div></div>
+            <div class="skill-row"><span class="skill-name">Using AI</span><div class="bar"><span style="--level: 94%"></span></div></div>
+            <div class="skill-row"><span class="skill-name">Presenting</span><div class="bar"><span style="--level: 80%"></span></div></div>
+          </div>
+          <aside class="reflection">
+            <p class="eyebrow">My proudest win</p>
+            <h3>Making technology feel personal</h3>
+            <p>I am proud that my projects were connected to real parts of my life: my grandma's recipes, choosing meals, Oahu beach conditions, and my tennis coach's business. I did not just make practice pages. I learned how to turn personal problems and relationships into websites that other people can actually use.</p>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="projects" id="projects">
+      <div class="page">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Selected work</p>
+            <h2>Four milestones</h2>
+          </div>
+          <p>Each project added a new layer: designing for a client, building interaction, and connecting a polished website to a real goal.</p>
+        </div>
+        <div class="project-grid">
+          <article class="project">
+            <span class="project-number">01 · CLIENT WEBSITE</span>
+            <h3>Grandma's Cookbook</h3>
+            <p>A family recipe collection shaped by an interview, handwritten recipes, and accessibility for older users.</p>
+            <a href="https://maricesar808.github.io/cookbook-miniproject1/">View live project →</a>
+          </article>
+          <article class="project">
+            <span class="project-number">02 · INTERACTIVE TOOL</span>
+            <h3>Meal Decision Helper</h3>
+            <p>An interactive tool that helps users decide what to eat, including a random meal picker when choosing feels difficult.</p>
+            <a href="https://maricesar808.github.io/meal-decision-helper/">View live project →</a>
+          </article>
+          <article class="project">
+            <span class="project-number">03 · API APP</span>
+            <h3>Beach Day Tracker</h3>
+            <p>Live weather data, Oahu beach locations, and a rating system.</p>
+            <a href="https://maricesar808.github.io/beach-day-tracker/">View live project →</a>
+          </article>
+          <article class="project">
+            <span class="project-number">04 · FINAL PROJECT</span>
+            <h3>Reyn Miyagawa Tennis</h3>
+            <p>A clean, professional coaching website with focused contact options and a deliberate visual direction.</p>
+            <a href="https://maricesar808.github.io/reyn-miyagawa-tennis/">View live project →</a>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="page">
+      <p><strong>Mari Cesar</strong> · OIM3690</p>
+    </div>
+  </footer>
+</body>
+</html>
